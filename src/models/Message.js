@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const MessageSchema = new mongoose.Schema({
-    nick: {
+    sender: {
         type: String,
         required: true
     },

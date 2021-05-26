@@ -31,10 +31,10 @@ mongoose.connect(
 );
 
 app.post('/message', async (req, res) => {
-  const { nick, type, content } = req.body
+  const { sender, type, content } = req.body
 
   const message = await Message.create({
-    nick,
+    sender,
     type,
     content
   });
@@ -43,10 +43,11 @@ app.post('/message', async (req, res) => {
 })
 
 app.get('/message', async (req, res) => {
-  const messages = await Message.find().select('-type -createdAt');
+  const messages = await Message.find().select('-createdAt');
 
   return res.json(messages)
 });
+
 
 app.post('/midiaUpload', multer(multerConfig).single("file"), async (req, res) => {
   const { originalname: name, size, key, path, location, mimetype } = req.file;
@@ -98,4 +99,4 @@ io.on('connection', (client) => {
   })
 })
 
-var server = http.listen(process.env.PORT || 3333);
+var server = http.listen(3333);
